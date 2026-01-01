@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptSlash Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #1e1e1e;
+      color: #e0e0e0;
+      padding: 20px;
+      min-width: 600px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .subtitle {
+      color: #999;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .prompt-form {
+      background: #2d2d2d;
+      border: 1px solid #404040;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #b0b0b0;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      background: #1e1e1e;
+      border: 1px solid #404040;
+      border-radius: 4px;
+      color: #e0e0e0;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #1a73e8;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-primary {
+      background: #1a73e8;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1557b0;
+    }
+
+    .btn-secondary {
+      background: #404040;
+      color: #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background: #505050;
+    }
+
+    .btn-danger {
+      background: #d32f2f;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #b71c1c;
+    }
+
+    .prompts-list {
+      background: #2d2d2d;
+      border: 1px solid #404040;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .prompts-list h2 {
+      color: #ffffff;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    .prompt-item {
+      background: #1e1e1e;
+      border: 1px solid #404040;
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .prompt-item-content {
+      flex: 1;
+    }
+
+    .prompt-item-label {
+      color: #ffffff;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .prompt-item-shortcut {
+      color: #999;
+      font-size: 12px;
+      font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+      margin-bottom: 8px;
+    }
+
+    .prompt-item-body {
+      color: #b0b0b0;
+      font-size: 13px;
+      line-height: 1.5;
+      max-height: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .prompt-item-actions {
+      display: flex;
+      gap: 8px;
+      margin-left: 16px;
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    .help-text {
+      color: #888;
+      font-size: 12px;
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+    
+    .help-text code {
+      background: #1e1e1e;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+      font-size: 11px;
+      color: #4CAF50;
+    }
+
+    .settings-section {
+      background: #2d2d2d;
+      border: 1px solid #404040;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .settings-section h2 {
+      color: #ffffff;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>PromptSlash Settings</h1>
+  <p class="subtitle">Manage your prompt shortcuts. Type // followed by the shortcut to use them.</p>
+
+  <div class="prompt-form">
+    <h2 id="form-title">Add New Prompt</h2>
+    <form id="prompt-form">
+      <input type="hidden" id="prompt-id">
+      
+      <div class="form-group">
+        <label for="label">Label (display name)</label>
+        <input type="text" id="label" placeholder="e.g., Summarize" required>
+      </div>
+
+      <div class="form-group">
+        <label for="content">Prompt Content</label>
+        <textarea id="content" placeholder="Enter the full prompt text..." required></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" id="save-btn">Save Prompt</button>
+        <button type="button" class="btn-secondary" id="cancel-btn" style="display: none;">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="prompts-list">
+    <h2>Your Prompts</h2>
+    <div id="prompts-container">
+      <div class="empty-state">Loading prompts...</div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <h2>Site Management</h2>
+    <div class="form-group">
+      <label>Extension Behavior</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="siteMode" value="all" checked> Run on all sites (except blocked)
+        </label>
+        <label>
+          <input type="radio" name="siteMode" value="specific"> Run only on specific sites
+        </label>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="siteList">Site List (one domain per line)</label>
+      <textarea id="siteList" placeholder="chatgpt.com&#10;gemini.google.com&#10;claude.ai"></textarea>
+      <p class="help-text">Enter domains in any format - all work the same way:<br>
+        ✅ <code>gemini.google.com</code><br>
+        ✅ <code>https://gemini.google.com</code><br>
+        ✅ <code>gemini.google.com/app</code><br>
+        The extension automatically extracts just the domain name.</p>
+    </div>
+    
+    <button id="save-sites-btn" class="btn-primary">Save Site Settings</button>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
