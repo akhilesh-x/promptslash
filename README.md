@@ -31,6 +31,11 @@
 ## Quick Start
 
 1. **Install the extension**
+   - Download: Click **Code** → **Download ZIP** on [GitHub](https://github.com/akhilesh-x/promptslash)
+   - Extract the ZIP file
+   - Open Chrome → `chrome://extensions/`
+   - Enable **Developer mode** (top right)
+   - Click **Load unpacked** → Select the extracted folder
 2. **Add your prompts** (click extension icon)
 3. **Type `//` anywhere** you're chatting with AI
 4. **Start typing** to filter, press Enter to insert
